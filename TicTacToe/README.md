@@ -1,5 +1,6 @@
 ## Execution
 
-To run: run docker and double click the bat file
+1) Run docker.
+2) Double click the bat file.
 
 
