@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.Properties;
-
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -48,7 +47,7 @@ public class Mail {
 	private MimeMessage draftEmailCancel(String email, String ID) throws AddressException, MessagingException, IOException {
 		String emailReceipients = email;
 		String emailSubject = "Booking Cancelled";
-		String emailBody = "Your reservation has been cancelled for bookingID: ." + ID + " successfully.";
+		String emailBody = "Your reservation has been cancelled for bookingID: " + ID + " successfully.";
 		mimeMessage = new MimeMessage(newSession);
 		mimeMessage.addRecipient (Message.RecipientType.TO, new InternetAddress (emailReceipients));
 		mimeMessage.setSubject (emailSubject);

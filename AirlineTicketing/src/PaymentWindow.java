@@ -67,25 +67,17 @@ public class PaymentWindow extends JFrame{
                 if(!fname.isBlank() && !lname.isBlank()  
                 && !billingAddress.isBlank() && !cvc.isBlank() && !email.isBlank()){
                     ticket = new Ticket(seat.FlightID, fname, lname, Integer.toString(passengerID++), ccNum, email, seat);
-                    ticket.insertTicket();
+                    try {
+                        ticket.insertTicket();
+                    } catch (IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
                     LoginWindow loginWindow = new LoginWindow();
                     loginWindow.setVisible(true);
                     paymentFrame.dispose();
                     JOptionPane.showMessageDialog(null,
                         "Payment Successful.\nBooking ID: " + ticket.BookingID,"Confirmation",1);
-                   /* Mail mail = new Mail ();
-                    try {
-						mail.publicSendMethod(email);
-					} catch (AddressException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (MessagingException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}*/
                     String fare = String.valueOf(seat.Price);
                     Mail paymentMail = new Mail ();
                     try {
