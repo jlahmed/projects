@@ -1,6 +1,21 @@
 ## PROJECT LIST + DESCRIPTION
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
+### Project #4 - Clothing Website (In Progress)
+Summary: This is my first attempt at making a website. My goal is to turn this into a clothing website. I am using this project to learn
+many new skills (see thechnology stack below).
+
+Technology Stack  
+-Frontend: JavaScript, HTML, CSS  
+-Backend: Node.js, MongoDB (running on docker network).
+
+Description: This is currently a simple website with a navigation bar and a body asking people to sign up to be notified when the website goes
+online. When the form is filled with name and email, the info gets saved on MongoDB database running in a docker container. In the navigation 
+bar, there is a link that takes you to the list of people that have signed up. This was done to practice connecting and reading/writing to 
+a databse running on docker container/network. I am using express and EJS modules to inject dynamic content.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
 ### Project #3 - Predicting Flight Delays (Big Data and Machine Learning)
 Summary: Performed machine learning on airline datasets to predict how much delay to expect for any given flight. The models predict if 
 a flight will have no delay, minor delay, moderate delay, or major delay.
