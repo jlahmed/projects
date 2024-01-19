@@ -1,7 +1,7 @@
 ## PROJECT LIST + DESCRIPTION
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-### Project #4 - Clothing Website (In Progress)
+### Project #4 - Clothing Website (Full Stack, In Progress)
 Summary: This is an in progress website. My goal is to turn this into a clothing website. I am using this project to learn
 many new skills (see thechnology stack below for things I have already learned/used).
 
