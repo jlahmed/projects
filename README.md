@@ -6,7 +6,7 @@ Description: Performed machine learning on airline datasets to predict how much 
 a flight will have no delay, minor delay, moderate delay, or major delay.
 
 Technology Stack  
--PySpark
+-PySpark  
 -ML models used: Random Forest, Logistic Regression
 
 Summary: This was a group project. I was responsible for the machine learning part where I used a couple of models to train/predict. Others were
