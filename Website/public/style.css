@@ -1,0 +1,16 @@
+/* Reset default margin and padding for body and div */
+body, #div1 {
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure the image takes up the full width of its container */
+.full-width-image {
+    width: 100%; /* Set the width to 100% */
+    max-height: 25vh;
+    height: auto; /* Allow the height to adjust proportionally */
+    display: block; /* Ensure the image behaves as a block element */
+}
+
+
+

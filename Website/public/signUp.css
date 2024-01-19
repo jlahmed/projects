@@ -1,0 +1,28 @@
+/* CSS for signup form and button */
+.signup-area {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.signup-area input[type="text"],
+.signup-area input[type="email"] {
+    width: 250px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid hsl(0, 0%, 3%);
+    box-sizing: border-box;
+}
+
+.signup-area input[type="submit"] {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
+
+.signup-area input[type="submit"]:hover {
+    background-color: #555;
+}
