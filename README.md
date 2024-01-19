@@ -6,7 +6,7 @@ Summary: This is an in progress website. My goal is to turn this into a clothing
 many new skills (see thechnology stack below for things I have already learned/used).
 
 Technology Stack  
--Frontend: JavaScript, HTML, CSS. I will be using React in the future.
+-Frontend: JavaScript, HTML, CSS. I will be using React in the future.  
 -Backend: Node.js, MongoDB (running on docker network).
 
 Description: This is currently a simple website with a navigation bar and a body asking people to sign up to be notified when the website goes
