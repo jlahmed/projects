@@ -1,4 +1,17 @@
-to run this:
+## Screenshots
+
+### MongoDB and MongoExpress running in docker containers on same network
+![Docker](./screenshots/Docker.png)
+
+### Website
+![Website](./screenshots/website.png)
+
+### Database updated based on website input
+![Database](./screenshots/MongoDB.png)  
+
+------------------------------------------------------------------------------
+
+Instructions to run the project after download:
 1. open folder in VS code
 2. open docker
 3. run: npm install
