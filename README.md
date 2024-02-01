@@ -5,7 +5,7 @@
 Summary: This project is to gain more frontend experience by building a website to showcase my projects.
 
 Technology Stack  
--Frontend: React + Vite
+-Frontend: React + Vite  
 -Backend: Node.js
 
 Description: This is a website in progress. So far, I have implented props and hooks to build a carousel of cards to navigate through my projects.
@@ -17,7 +17,7 @@ Summary: For this project, I learned some frontend, backend, and devops. My focu
 together. I thought it would be a good idea to learn a bit of everything and then focus on one thing on subsequent project.
 
 Technology Stack  
--Frontend: JavaScript, HTML, CSS. 
+-Frontend: JavaScript, HTML, CSS.  
 -Backend: Node.js, MongoDB (running on docker network).
 
 Description: This is currently a simple website with a navigation bar and a body asking people to sign up to be notified when the website goes
