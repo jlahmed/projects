@@ -1,9 +1,0 @@
-.card {
-    background-color: white; /* White background */
-    border-radius: 8px; /* Rounded corners */
-    padding: 20px; /* Padding inside the card */
-    margin: 20px; /* Margin around the card */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); /* 3D shadow effect */
-    max-width: 300px; /* Maximum width of the card */
-  }
-  
