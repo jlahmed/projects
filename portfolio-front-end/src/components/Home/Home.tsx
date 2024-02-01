@@ -5,12 +5,12 @@ import Carousel from "../common/Carousel/Carousel";
 const Home = () => {
     const intro = "I am an experienced web developer with a background in oil & gas facilities engineering. If I have peeked your interest, please navigate my website to learn more and do not hesitate to contact me for more information!"
     const cardsData: CardProps[] = [
-        { title: 'MiKata' },
-        { title: 'Card 2' },
-        { title: 'Card 3' },
-        { title: 'Card 4' },
-        { title: 'Card 5' },
-        { title: 'Card 6' },
+        { title: 'Project1' },
+        { title: 'Project2' },
+        { title: 'Project3' },
+        { title: 'Project4' },
+        { title: 'Project5' },
+        { title: 'Project6' },
         // Add more cards as needed
       ];
     return (
