@@ -1,7 +1,7 @@
 ## PROJECT LIST + DESCRIPTION
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-### Project #5 (In progress) - Building a website to showcase my portfolio 
+### Project #5 (Portfolio - In progress) - Building a website to showcase my portfolio 
 Summary: This project is to gain more frontend experience by building a website to showcase my projects.
 
 Technology Stack  
@@ -12,7 +12,7 @@ Description: This is a website in progress. So far, I have implented props and h
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-### Project #4 - Full Stack web development
+### Project #4 - ClothingWebsite (Full Stack web development)
 Summary: For this project, I learned some frontend, backend, and devops. My focus here was to get the big picture and see if I can put it all 
 together. I thought it would be a good idea to learn a bit of everything and then focus on one thing on subsequent project.
 
