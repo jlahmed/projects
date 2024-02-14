@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Card, { CardProps } from '../Card/Card';
 import './Carousel.css';
+import ArrowR from '../SVG/arrowR'
+import ArrowL from '../SVG/arrowL'
 
 interface CarouselProps {
   cards: CardProps[];
 }
 
-const Carousel: React.FC<CarouselProps> = ({ cards }) => {
+const Carousel = ({ cards }: CarouselProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  // Initialize cardsPerPage based on current window width
-  const getInitialCardsPerPage = () => (window.innerWidth < 768 ? 2 : 3);
-  const [cardsPerPage, setCardsPerPage] = useState(getInitialCardsPerPage);
-  const [, setWindowWidth] = useState(window.innerWidth);
+
+  const getInitialCardsPerPage = () => (window.innerWidth < 480 ? 1 : window.innerWidth < 768 ? 2 : 3);
+  const [cardsPerPage, setCardsPerPage] = useState(getInitialCardsPerPage());
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-      // Adjust cardsPerPage based on updated window width
-      setCardsPerPage(window.innerWidth < 768 ? 2 : 3);
+        setCardsPerPage(getInitialCardsPerPage());
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+}, []); 
+
 
   const totalPages = Math.ceil(cards.length / cardsPerPage);
 
@@ -38,13 +38,13 @@ const Carousel: React.FC<CarouselProps> = ({ cards }) => {
 
   return (
     <div className="carousel-container">
-        <div className="carousel-arrow left" onClick={goToPreviousPage}>&lt;</div>
+        <div className="carousel-arrow left" onClick={goToPreviousPage}> <ArrowL/> </div>
         <div className="carousel-cards">
             {visibleCards.map((card, index) => (
-                <Card key={index} title={card.title} />
+                <Card key={index} title={card.title} onClick={card.onClick}/>
             ))}
         </div>
-        <div className="carousel-arrow right" onClick={goToNextPage}>&gt;</div>
+        <div className="carousel-arrow right" onClick={goToNextPage}> <ArrowR/> </div>
         <div className="carousel-pagination">
             {[...Array(totalPages).keys()].map(page => (
                 <span

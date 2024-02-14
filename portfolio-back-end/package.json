@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-back-end",
+  "version": "1.0.0",
+  "description": "backend for my portfolio project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "jlahmed"
+  },
+  "author": "Jubayer Ahmed",
+  "license": "ISC"
+}
