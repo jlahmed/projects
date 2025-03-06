@@ -1,7 +1,5 @@
 # Ignore virtual environment directories
-STT/sst/venv/
-STT/sst/Lib/
-STT/sst/Scripts/
+sst
 
 # Ignore other common files
 __pycache__/
