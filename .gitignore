@@ -1,3 +1,13 @@
-sst/venv/
-sst/Lib/
-sst/Scripts/
+# Ignore virtual environment directories
+STT/sst/venv/
+STT/sst/Lib/
+STT/sst/Scripts/
+
+# Ignore other common files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
