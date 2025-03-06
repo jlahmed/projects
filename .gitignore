@@ -1,1 +1,4 @@
+# Ignore virtual environments
 sst/venv/
+sst/Lib/
+sst/Scripts/
