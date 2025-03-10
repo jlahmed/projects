@@ -1,6 +1,7 @@
 # Ignore virtual environment directories
 sst
 src/.env
+readme.txt
 
 # Ignore other common files
 __pycache__/
