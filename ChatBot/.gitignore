@@ -1,0 +1,13 @@
+# Ignore virtual environment directories
+sst
+.env
+readme.txt
+
+# Ignore other common files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
