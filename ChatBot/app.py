@@ -8,7 +8,7 @@ SPEECH_KEY = st.secrets["SPEECH_KEY"]
 SPEECH_REGION = st.secrets["SPEECH_REGION"]
 AZURE_OPENAI_ENDPOINT = st.secrets["AZURE_OPENAI_ENDPOINT"]
 AZURE_OPENAI_API_KEY = st.secrets["AZURE_OPENAI_API_KEY"]
-AZURE_OPENAI_AZURE_OPENAI_MODEL_NAME = st.secrets["AZURE_OPENAI_AZURE_OPENAI_MODEL_NAME"]
+AZURE_OPENAI_MODEL_NAME = st.secrets["AZURE_OPENAI_MODEL_NAME"]
 
 ##Uconmment for using os instead of st
 # import os 
@@ -16,7 +16,7 @@ AZURE_OPENAI_AZURE_OPENAI_MODEL_NAME = st.secrets["AZURE_OPENAI_AZURE_OPENAI_MOD
 # SPEECH_REGION = os.getenv("SPEECH_REGION")
 # AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
 # AZURE_OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY")
-# AZURE_OPENAI_AZURE_OPENAI_MODEL_NAME = os.getenv("AZURE_OPENAI_AZURE_OPENAI_MODEL_NAME")
+# AZURE_OPENAI_MODEL_NAME = os.getenv("AZURE_OPENAI_MODEL_NAME")
 # load_dotenv()
 
 speech_config = speechsdk.SpeechConfig(subscription=SPEECH_KEY, region=SPEECH_REGION)
@@ -64,7 +64,7 @@ def listen():
 
 def process():
     response = model.chat.completions.create(
-    model=AZURE_OPENAI_AZURE_OPENAI_MODEL_NAME,
+    model=AZURE_OPENAI_MODEL_NAME,
     messages=messages,
     max_tokens=100,  
     temperature=0.7,  
