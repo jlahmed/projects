@@ -1,5 +1,5 @@
 # Ignore virtual environment directories
-sst
+venv
 .env
 readme.txt
 

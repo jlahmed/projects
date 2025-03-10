@@ -106,8 +106,6 @@ if __name__ == "__main__":
             prompt=listen()
             if not prompt:
                 continue  # Skip empty inputs
-            if "stop" in prompt.lower():
-                break
 
             messages.append({"role": "user", "content": prompt})  
             st.text_area("You: ", prompt, key=prompt)
@@ -121,5 +119,5 @@ if __name__ == "__main__":
         goodbye_message = "It has been my pleasure to assist you today, have a great day!"
         st.text_area("Assistant: ", goodbye_message, key=goodbye_message)
         speak(goodbye_message)
-    
-    st.stop()
+        st.stop()
+        quit()
