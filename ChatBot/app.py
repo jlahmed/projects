@@ -4,11 +4,23 @@ from dotenv import load_dotenv
 from openai import AzureOpenAI
 import azure.cognitiveservices.speech as speechsdk
 
-SPEECH_KEY = os.getenv("SPEECH_KEY")
-SPEECH_REGION = os.getenv("SPEECH_REGION")
-AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
-AZURE_OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY")
-AZURE_OPENAI_MODEL_NAME = os.getenv("AZURE_OPENAI_MODEL_NAME")
+SPEECH_KEY = st.secrets["SPEECH_KEY"]
+SPEECH_REGION = st.secrets["SPEECH_REGION"]
+AZURE_OPENAI_ENDPOINT = st.secrets["AZURE_OPENAI_ENDPOINT"]
+AZURE_OPENAI_API_KEY = st.secrets["AZURE_OPENAI_API_KEY"]
+AZURE_OPENAI_MODEL_NAME = st.secrets["AZURE_OPENAI_MODEL_NAME"]
+
+# SPEECH_KEY = os.getenv("SPEECH_KEY")
+# SPEECH_REGION = os.getenv("SPEECH_REGION")
+# AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
+# AZURE_OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY")
+# AZURE_OPENAI_MODEL_NAME = os.getenv("AZURE_OPENAI_MODEL_NAME")
+
+model = AzureOpenAI(
+azure_endpoint = AZURE_OPENAI_ENDPOINT, 
+api_key=AZURE_OPENAI_API_KEY,  
+api_version="2024-05-01-preview"
+)
 
 speech_config = speechsdk.SpeechConfig(subscription=SPEECH_KEY, region=SPEECH_REGION)
 speech_config.speech_recognition_language="en-US"
@@ -16,12 +28,6 @@ audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
 speech_config.speech_synthesis_voice_name='en-US-AvaMultilingualNeural'
 speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
-
-model = AzureOpenAI(
-azure_endpoint = AZURE_OPENAI_ENDPOINT, 
-api_key=AZURE_OPENAI_API_KEY,  
-api_version="2024-05-01-preview"
-)
 
 messages = [
     {
