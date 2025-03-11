@@ -26,8 +26,8 @@ speech_config = speechsdk.SpeechConfig(subscription=SPEECH_KEY, region=SPEECH_RE
 speech_config.speech_recognition_language="en-US"
 audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
 speech_config.speech_synthesis_voice_name='en-US-AvaMultilingualNeural'
-speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
 
 messages = [
     {
