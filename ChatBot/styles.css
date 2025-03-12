@@ -1,0 +1,36 @@
+/* Reduce top spacing */
+.block-container {
+    padding-top: 2rem !important;
+}
+
+/* Target the main container element */
+[data-testid="stVerticalBlock"] > div:has([data-testid="stChatMessage"]) {
+    height: 550px;
+    overflow-y: auto;
+    border: 1px solid rgba(250, 250, 250, 0.2);
+    padding: 2rem;
+    background-color: rgba(17, 17, 17, 0.8);
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+
+/* Style chat messages */
+[data-testid="stChatMessage"] {
+    width: 100%;
+    color: #ffffff;
+}
+
+/* Style assistant messages specifically */
+[data-testid="stChatMessage"].assistant {
+    background-color: rgba(30, 30, 30, 0.9);
+}
+
+/* Style user messages */
+[data-testid="stChatMessage"].user {
+    background-color: rgba(50, 50, 50, 0.9);
+}
+
+/* Ensure text is visible */
+[data-testid="stMarkdownContainer"] {
+    color: #ffffff !important;
+} 
