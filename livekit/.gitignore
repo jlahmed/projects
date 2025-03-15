@@ -1,11 +1,11 @@
-venv
-.env
+backend/venv
+backend/.env
 
 # Ignore other common files
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.db
-*.sqlite3
-*.log
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+backend/*.db
+backend/*.sqlite3
+backend/*.log
