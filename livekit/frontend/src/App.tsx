@@ -2,11 +2,13 @@ import { useState, useEffect, useRef } from 'react'
 import {
   Room,
   RoomEvent,
-  RemoteParticipant,
-  RemoteTrack,
-  RoomOptions
+  RemoteTrack
 } from 'livekit-client'
+import * as speechsdk from 'microsoft-cognitiveservices-speech-sdk'
 import './App.css'
+const LIVEKIT_URL = import.meta.env.VITE_LIVEKIT_URL;
+const SPEECH_KEY = import.meta.env.VITE_SPEECH_KEY;
+const SPEECH_REGION = import.meta.env.VITE_SPEECH_REGION;
 
 interface ChatMessage {
   text: string;
@@ -19,7 +21,9 @@ function App() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [room, setRoom] = useState<Room | null>(null)
   const [error, setError] = useState<string>('')
+  const [isListening, setIsListening] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const recognizerRef = useRef<speechsdk.SpeechRecognizer | null>(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -28,6 +32,57 @@ function App() {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  const initializeSpeechRecognizer = () => {
+    const speechConfig = speechsdk.SpeechConfig.fromSubscription(
+      SPEECH_KEY,
+      SPEECH_REGION
+    );
+    speechConfig.speechRecognitionLanguage = 'en-US';
+    
+    const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
+    const recognizer = new speechsdk.SpeechRecognizer(speechConfig, audioConfig);
+
+    recognizer.recognized = (s, e) => {
+      if (e.result.text && e.result.text.trim() !== '') {
+        setMessages(prev => [...prev, {
+          text: e.result.text,
+          sender: 'You',
+          timestamp: new Date()
+        }]);
+      }
+    };
+
+    recognizerRef.current = recognizer;
+  };
+
+  const startListening = () => {
+    if (recognizerRef.current) {
+      recognizerRef.current.startContinuousRecognitionAsync(
+        () => {
+          setIsListening(true);
+          console.log('Speech recognition started');
+        },
+        (error) => {
+          console.error('Error starting recognition:', error);
+        }
+      );
+    }
+  };
+
+  const stopListening = () => {
+    if (recognizerRef.current) {
+      recognizerRef.current.stopContinuousRecognitionAsync(
+        () => {
+          setIsListening(false);
+          console.log('Speech recognition stopped');
+        },
+        (error) => {
+          console.error('Error stopping recognition:', error);
+        }
+      );
+    }
+  };
 
   const getToken = async () => {
     try {
@@ -57,55 +112,90 @@ function App() {
   const connectToRoom = async () => {
     try {
       const token = await getToken();
-      const url = 'wss://bot-6ohqqmrh.livekit.cloud'
+      const url = LIVEKIT_URL;
       
-      const roomOptions: RoomOptions = {
-        adaptiveStream: true,
-        dynacast: true
-      }
-      
-      const room = new Room(roomOptions)
+      const room = new Room()
 
-      room.on(RoomEvent.TrackSubscribed, (track: RemoteTrack) => {
-        if (track.kind === 'audio') {
-          // Handle incoming audio
-          track.attach()
+      room.on(RoomEvent.DataReceived, (payload: Uint8Array) => {
+        try {
+          const text = new TextDecoder().decode(payload);
+          const message = JSON.parse(text);
+          console.log(message.text);
+          
+          setMessages(prev => [...prev, {
+            text: message.text,
+            sender: message.type === 'user_speech' ? 'You' : 'AI',
+            timestamp: new Date()
+          }]);
+        } catch (error) {
+          console.error('Error processing message:', error);
         }
-      })
+      });
 
-      room.on(RoomEvent.DataReceived, (payload: Uint8Array, participant?: RemoteParticipant) => {
-        const message = JSON.parse(new TextDecoder().decode(payload))
-        setMessages(prev => [...prev, {
-          text: message.text,
-          sender: participant?.identity || 'AI',
-          timestamp: new Date()
-        }])
-      })
+      room.on(RoomEvent.TrackSubscribed, async (track: RemoteTrack) => {
+        if (track.kind === 'audio') {
+          try {
+            const mediaTrack = track.mediaStreamTrack;
+            const stream = new MediaStream([mediaTrack]);
 
-      await room.connect(url, token)
-      await room.localParticipant.setMicrophoneEnabled(true)
+            const audioElement = document.createElement('audio');
+            audioElement.srcObject = stream;
+            audioElement.autoplay = true;
+            document.body.appendChild(audioElement);
+
+            const speechConfig = speechsdk.SpeechConfig.fromSubscription(
+              "FslrsjPFv9EBwVBC1XM6z4nKIMIuO9moOTnSRVYm2zjkDUUrq6AZJQQJ99BCAC4f1cMXJ3w3AAAAACOGYBVG",
+              "westus"
+            );
+            speechConfig.speechRecognitionLanguage = 'en-US';
+
+            const audioConfig = speechsdk.AudioConfig.fromStreamInput(stream);
+            const recognizer = new speechsdk.SpeechRecognizer(speechConfig, audioConfig);
+
+            recognizer.recognized = (s, e) => {
+              if (e.result.text && e.result.text.trim() !== '') {
+                console.log('AI Speech recognized:', e.result.text);
+                setMessages(prev => [...prev, {
+                  text: e.result.text,
+                  sender: 'AI (Transcribed)',
+                  timestamp: new Date()
+                }]);
+              }
+            };
+
+            await recognizer.startContinuousRecognitionAsync();
+            console.log('AI audio recognition started');
+
+          } catch (err) {
+            console.error('Error setting up audio handling:', err);
+          }
+        }
+      });
+
+      await room.connect(url, token);
+      await room.localParticipant.setMicrophoneEnabled(true);
       
-      setRoom(room)
-      setMessages(prev => [...prev, {
+      setRoom(room);
+      initializeSpeechRecognizer();
+      startListening();
+      
+      setMessages([{
         text: "Connected to room. AI assistant is ready to chat.",
         sender: 'System',
         timestamp: new Date()
-      }])
+      }]);
     } catch (err) {
-      console.error('Failed to connect to room:', err)
-      setError('Failed to connect to room. Please try again.')
+      console.error('Failed to connect to room:', err);
+      setError('Failed to connect to room. Please try again.');
     }
   }
 
   const disconnectFromRoom = async () => {
     if (room) {
+      stopListening();
       room.disconnect()
       setRoom(null)
-      setMessages(prev => [...prev, {
-        text: "Disconnected from room.",
-        sender: 'System',
-        timestamp: new Date()
-      }])
+      setMessages([])
     }
   }
 
@@ -124,23 +214,30 @@ function App() {
         {error ? (
           <div className="error-message">{error}</div>
         ) : isChatStarted ? (
-          <div className="messages-container">
-            {messages.map((message, index) => (
-              <div 
-                key={index} 
-                className={`message ${message.sender.toLowerCase()}`}
-              >
-                <div className="message-header">
-                  <span className="sender">{message.sender}</span>
-                  <span className="timestamp">
-                    {message.timestamp.toLocaleTimeString()}
-                  </span>
+          <>
+            <div className={`listening-indicator ${isListening ? 'active' : ''}`}>
+              {isListening ? 'Listening...' : 'Not listening'}
+            </div>
+            <div className="messages-container">
+              {[...messages]
+                .sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime())
+                .map((message, index) => (
+                <div 
+                  key={index} 
+                  className={`message ${message.sender.toLowerCase()}`}
+                >
+                  <div className="message-header">
+                    <span className="sender">{message.sender}</span>
+                    <span className="timestamp">
+                      {message.timestamp.toLocaleTimeString()}
+                    </span>
+                  </div>
+                  <div className="message-content">{message.text}</div>
                 </div>
-                <div className="message-content">{message.text}</div>
-              </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+          </>
         ) : (
           <div className="placeholder-text">
             Start a conversation to begin chatting
@@ -154,7 +251,7 @@ function App() {
         {isChatStarted ? 'Stop Conversation' : 'Start Conversation'}
       </button>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

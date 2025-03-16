@@ -20,18 +20,18 @@ async def entrypoint(ctx: JobContext):
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
     fnc_ctx = AssistantFnc()
 
-    assitant = VoiceAssistant(
+    assistant = VoiceAssistant(
         vad=silero.VAD.load(),
         stt=openai.STT(),
         llm=openai.LLM(),
-        tts=openai.TTS(),
+        tts=openai.TTS(voice="nova"),
         chat_ctx=initial_ctx,
         fnc_ctx=fnc_ctx,
     )
-    assitant.start(ctx.room)
+    assistant.start(ctx.room)
 
     await asyncio.sleep(1)
-    await assitant.say("Hey, how can I help you today!", allow_interruptions=True)
+    await assistant.say("Hey, how can I help you today!")
 
 
 if __name__ == "__main__":

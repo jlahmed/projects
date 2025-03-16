@@ -1,5 +1,7 @@
 backend/venv
 backend/.env
+frontend/.env
+readme.txt
 
 # Ignore other common files
 backend/__pycache__/

@@ -42,15 +42,22 @@ def create_token(room_name, username):
 @app.route('/get_token', methods=['POST'])
 def get_token():
     try:
+        # Get data from the request
         data = request.get_json()
-        room_name = data.get('room', 'ai-chat-room')
-        username = data.get('username', 'user')
+        
+        # Check if room and username are provided, otherwise return an error
+        room_name = data.get('room')
+        username = data.get('username')
+        
+        if not room_name or not username:
+            return jsonify({"error": "Room name and username are required"}), 400
 
         print("\n" + "="*50)
         print("Received token request:")
         print(f"Room: {room_name}")
         print(f"Username: {username}")
 
+        # Generate the token
         token = create_token(room_name, username)
         
         print("\nGENERATED TOKEN:")
@@ -59,12 +66,14 @@ def get_token():
         print("="*50 + "\n")
         
         return jsonify({"token": token})
+    
     except Exception as e:
         print("\nERROR GENERATING TOKEN:")
         print("="*50)
         print(str(e))
         print("="*50 + "\n")
         return jsonify({"error": "Failed to generate token"}), 500
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True) 

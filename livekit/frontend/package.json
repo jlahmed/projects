@@ -12,12 +12,14 @@
   "dependencies": {
     "@livekit/components-react": "^2.8.1",
     "livekit-client": "^2.9.7",
+    "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-use-websocket": "^4.13.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
