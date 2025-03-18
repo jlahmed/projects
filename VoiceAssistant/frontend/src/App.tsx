@@ -25,6 +25,10 @@ function App() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const recognizerRef = useRef<speechsdk.SpeechRecognizer | null>(null)
 
+  useEffect(() => {
+    document.title = 'VoiceAssistant';
+  }, []);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
@@ -157,7 +161,7 @@ function App() {
                 console.log('AI Speech recognized:', e.result.text);
                 setMessages(prev => [...prev, {
                   text: e.result.text,
-                  sender: 'AI (Transcribed)',
+                  sender: 'Assistant',
                   timestamp: new Date()
                 }]);
               }

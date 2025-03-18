@@ -5,7 +5,7 @@
   justify-content: center;
   min-height: 100vh;
   width: 100%;
-  padding-left: 230px;
+  padding-left: 450px;
   margin: 0;
   box-sizing: border-box;
 }
@@ -13,8 +13,8 @@
 .chat-window {
   display: flex;
   flex-direction: column;
-  width: 1200px;
-  min-width: 1200px;
+  width: 800px;
+  min-width: 800px;
   height: 600px;
   min-height: 600px;
   background-color: rgb(28, 26, 26);
@@ -29,16 +29,19 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 1.5rem;
   overflow-y: auto;
   gap: 1rem;
+  box-sizing: border-box;
 }
 
 .message {
   padding: 1rem;
   border-radius: 8px;
-  max-width: 80%;
+  max-width: 60%;
   animation: fadeIn 0.3s ease;
+  word-wrap: break-word;
+  box-sizing: border-box;
 }
 
 .message.system {
@@ -46,19 +49,27 @@
   background-color: rgba(255, 255, 255, 0.1);
   color: #888;
   font-style: italic;
-  max-width: 100%;
+  max-width: 80%;
 }
 
-.message.ai {
+.message.assistant {
   align-self: flex-start;
-  background-color: #2D3748;
+  background-color: #1a365d;
   color: white;
+  border-left: 4px solid #4299e1;
+  margin-right: auto;
+  margin-left: 1rem;
+  width: fit-content;
 }
 
-.message.user {
+.message.you {
   align-self: flex-end;
-  background-color: #4F46E5;
+  background-color: #3b0764;
   color: white;
+  border-right: 4px solid #8b5cf6;
+  margin-left: auto;
+  margin-right: 1rem;
+  width: fit-content;
 }
 
 .message-header {
