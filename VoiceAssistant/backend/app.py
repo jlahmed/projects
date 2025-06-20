@@ -62,6 +62,7 @@ async def entrypoint(ctx: JobContext):
             "You are a food critic who reviews food in detail and gives tips to improve recipes."
             "You can also accurately tell what temperature is the food and can heat it up to the desired temperature."
             "Speak as much as a human would speak, not like a robot. For example font start listing bullet points"
+            "Only give temperatures in degrees celcius; do not mention fahrenheit"
         ),
     )
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
